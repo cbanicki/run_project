@@ -53,10 +53,45 @@ run_analysis <- function() {
     
   }
   
+  require(data.table)
   
-  activity_labels <- read.table("UCI HAR Dataset//activity_labels.txt", sep = " ", header=FALSE, na.strings = NA)
+  #activity_labels <- fread("UCI HAR Dataset//activity_labels.txt")
   
-  head(activity_labels)
+  features <- fread("UCI HAR Dataset//features.txt")
+  
+  #subject_test <- fread("UCI HAR Dataset//test//subject_test.txt")
+  
+  #x_test <- fread("UCI HAR Dataset//test//X_test.txt")
+  
+  
+  # Testing the idea of using fread, rather than read.table due to some issues I am running into loading the X_test data
+  
+  
+  #activity_labels <- read.table("UCI HAR Dataset//activity_labels.txt", sep = " ", header=FALSE, na.strings = NA)
+  
+  #features <- read.table("UCI HAR Dataset//features.txt", sep = " ", header=FALSE, na.strings = NA)
+  
+  #subject_test <- read.table("UCI HAR Dataset//test//subject_test.txt", sep = " ", header=FALSE, na.strings = NA)
+  
+  #x_test <- read.table("UCI HAR Dataset//test//X_test.txt", colClasses = c(NULL,rep("numeric", count.fields("UCI HAR Dataset//test//X_test.txt")[1] -1 )), sep = " ", header=FALSE, na.strings = NA)
+  
+  #y_test <- read.table("UCI HAR Dataset//test//y_test.txt", sep = " ", header=FALSE, na.strings = NA)
+  
+  #subject_train <- read.table("UCI HAR Dataset//test//subject_train.txt", sep = " ", header=FALSE, na.strings = NA)
+  
+  #x_train <- read.table("UCI HAR Dataset//test//x_train.txt", sep = " ", header=FALSE, na.strings = NA)
+  
+  #y_train <- read.table("UCI HAR Dataset//test//y_train.txt", sep = " ", header=FALSE, na.strings = NA)
+  
+  
+  
+ # head(activity_labels, 10)
+    head(features, 10)
+#   head(subject_test, 10)
+#   head(x_test, 10)
+#   head(y_test, 10)
+#   head(x_train, 10)
+#   head(y_train, 10)
   
 
 }
