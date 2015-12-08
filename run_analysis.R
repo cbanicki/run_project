@@ -18,8 +18,50 @@ run_analysis <- function() {
 #   Please upload your data set as a txt file created with write.table() using row.name=FALSE (do not cut and paste a dataset directly into the text box, as this may cause errors saving your submission).
   
   
+  # Turn this on for testing but remove before publishing
+  #setwd("C://R//Data//Project")
+  
+
+  #check whether you have already dowloaded the data, then download and unzip if not 
+  if (!file.exists("getdata-projectfiles-UCI HAR Dataset.zip")) {
+      
+      fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+      
+      fileName <- "getdata-projectfiles-UCI HAR Dataset.zip"
+      
+      download.file(fileURL, fileName, mode = "wb")
+      
+      #download.file(fileURL,destfile="Q1q3.xlsx",mode="wb")
+      
+      #xData <- getURL(fileURL, ssl.verifypeer = FALSE)
+      
+      dateDownloaded <- date()
+      
+      print("didn't exist!")
+      
+      unzip(fileName, files = NULL, list = FALSE, overwrite = TRUE,
+            junkpaths = FALSE, exdir = ".", unzip = "internal",
+            setTimes = FALSE)
+    
+      
+    }
+    
+  else {
+    
+
+    print("file existed!")
+    
+  }
   
   
+  activity_labels <- read.table("UCI HAR Dataset//activity_labels.txt", sep = " ", header=FALSE, na.strings = NA)
   
+  head(activity_labels)
+  
+
 }
 
+
+
+
+ 
