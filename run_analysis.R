@@ -19,7 +19,7 @@ run_analysis <- function() {
   
   
   # Turn this on for testing but remove before publishing
-  #setwd("C://R//Data//Project")
+  setwd("C://R//Data//Project")
   
 
   #check whether you have already dowloaded the data, then download and unzip if not 
@@ -55,43 +55,79 @@ run_analysis <- function() {
   
   require(data.table)
   
-  #activity_labels <- fread("UCI HAR Dataset//activity_labels.txt")
+#   activity_labels <- fread("UCI HAR Dataset//activity_labels.txt")
+#   
+   features <- fread("UCI HAR Dataset//features.txt")
   
-  features <- fread("UCI HAR Dataset//features.txt")
+   #transform the column headers to one row so they can be used as the header
+   
+   features <- t(features)
+#   
+#   subject_test <- fread("UCI HAR Dataset//test//subject_test.txt")
+#   
+#   subject_train <- fread("UCI HAR Dataset//test//subject_train.txt")
+#   
+  x_test <- fread("UCI HAR Dataset//test//X_test.txt")
   
-  #subject_test <- fread("UCI HAR Dataset//test//subject_test.txt")
+  colnames(x_test) <- c(features[2,])
   
-  #x_test <- fread("UCI HAR Dataset//test//X_test.txt")
+  # Add a row number column for reference
   
+  x_test$RowId <- 1:nrow(x_test)
   
-  # Testing the idea of using fread, rather than read.table due to some issues I am running into loading the X_test data
+  #y_test <- fread("UCI HAR Dataset//test//y_test.txt")
   
+  # y_test$RowId <- 1:nrow(y_test)
   
-  #activity_labels <- read.table("UCI HAR Dataset//activity_labels.txt", sep = " ", header=FALSE, na.strings = NA)
+  x_train <- fread("UCI HAR Dataset//train//x_train.txt")
   
-  #features <- read.table("UCI HAR Dataset//features.txt", sep = " ", header=FALSE, na.strings = NA)
+  # Add a row number column for reference
   
-  #subject_test <- read.table("UCI HAR Dataset//test//subject_test.txt", sep = " ", header=FALSE, na.strings = NA)
+  x_train$RowId <- 1:nrow(x_train)
   
-  #x_test <- read.table("UCI HAR Dataset//test//X_test.txt", colClasses = c(NULL,rep("numeric", count.fields("UCI HAR Dataset//test//X_test.txt")[1] -1 )), sep = " ", header=FALSE, na.strings = NA)
-  
-  #y_test <- read.table("UCI HAR Dataset//test//y_test.txt", sep = " ", header=FALSE, na.strings = NA)
-  
-  #subject_train <- read.table("UCI HAR Dataset//test//subject_train.txt", sep = " ", header=FALSE, na.strings = NA)
-  
-  #x_train <- read.table("UCI HAR Dataset//test//x_train.txt", sep = " ", header=FALSE, na.strings = NA)
-  
-  #y_train <- read.table("UCI HAR Dataset//test//y_train.txt", sep = " ", header=FALSE, na.strings = NA)
+  # y_train <- fread("UCI HAR Dataset//train//y_train.txt")
   
   
+ # y_train$RowId <- 1:nrow(y_train)
   
- # head(activity_labels, 10)
-    head(features, 10)
+  #x <- c(x_test,x_test)
+  
+   x_combined = rbind(x_test,x_test)
+   
+    
+   head(x_combined)
+ 
+#   
+#   y_combined <- rbind(data y_test, data y_train)
+#   
+  
+  
+#   activity_labels <- read.table("UCI HAR Dataset//activity_labels.txt", sep = " ", header=FALSE, na.strings = NA)
+#   
+#   features <- read.table("UCI HAR Dataset//features.txt", sep = " ", header=FALSE, na.strings = NA)
+#   
+#   subject_test <- read.table("UCI HAR Dataset//test//subject_test.txt", sep = " ", header=FALSE, na.strings = NA)
+#   
+#   x_test <- read.table("UCI HAR Dataset//test//X_test.txt", colClasses = c(NULL,rep("numeric", count.fields("UCI HAR Dataset//test//X_test.txt")[1] -1 )), sep = " ", header=FALSE, na.strings = NA)
+#   
+#   y_test <- read.table("UCI HAR Dataset//test//y_test.txt", sep = " ", header=FALSE, na.strings = NA)
+#   
+#   subject_train <- read.table("UCI HAR Dataset//test//subject_train.txt", sep = " ", header=FALSE, na.strings = NA)
+#   
+#   x_train <- read.table("UCI HAR Dataset//test//x_train.txt", sep = " ", header=FALSE, na.strings = NA)
+#   
+#   y_train <- read.table("UCI HAR Dataset//test//y_train.txt", sep = " ", header=FALSE, na.strings = NA)
+  
+#   head(activity_labels, 10)
+#   head(features, 10)
 #   head(subject_test, 10)
 #   head(x_test, 10)
 #   head(y_test, 10)
 #   head(x_train, 10)
 #   head(y_train, 10)
+  
+  
+  # Append column names to each dataset
   
 
 }
