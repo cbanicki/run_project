@@ -213,10 +213,16 @@ run_analysis <- function() {
   
   #merge(x = x_combined, y = activity_labels, by = "ActivityCode", all.x = TRUE)
   
-  head(x_combined)
-  
+  #head(x_combined)
+
   #head(y_train)
   
+  # Do I need to use the PLYR package to get a subset of columns here?
+
+  x_subset <- subset(x_combined, select = c("RowId","ActivityLabel", "SubjectCode", colnames(x_combined %like% "mean()"), colnames(x_combined %like% "std()")))
+  
+  head(x_subset)
+    
 }
 
 
