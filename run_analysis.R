@@ -98,10 +98,12 @@ run_analysis <- function() {
   
      y_test <- fread("UCI HAR Dataset//test//y_test.txt")
      
-     #colnames(y_test) <- "ActivityCode"
+     colnames(y_test) <- "ActivityCode"
 
      y_test$RowId <- 1:nrow(y_test)
      
+  #Add activity label to y_test   
+   y_test <- merge(y_test, activity_labels, by="ActivityCode")   
      
   # Merge the activity codes into the Test data set 
   x_test <- merge(x_test, y_test, by="RowId")
@@ -121,7 +123,7 @@ run_analysis <- function() {
   x_test$Source <- rep("Test",nrow(x_test)) 
   
   #Add feature column names to Test
-  colnames(x_test) <- c("RowId",features[2,],"ActivityCode","SubjectCode","DataSource")
+  colnames(x_test) <- c("RowId",features[2,],"ActivityCode","ActivityLabel","SubjectCode","DataSource")
   
 #   # Merge the Activty Names into the train data set 
 #   x_test <- merge(x_test, activity_labels, by="ActivityCode")
@@ -152,15 +154,22 @@ run_analysis <- function() {
   
   # Get activity codes for train
   
+  
   y_train <- fread("UCI HAR Dataset//train//y_train.txt")
 
   
+  # Add feature column names to y_train so that it can be joined to activity names
+  colnames(y_train) <- c("ActivityCode")
+  
   y_train$RowId <- 1:nrow(y_train)
   
+  # 
+  y_train <- merge(y_train, activity_labels, by="ActivityCode")
   
   # Merge the activity codes into the train data set 
   x_train <- merge(x_train, y_train, by="RowId")
   
+
   
   # Get Volunteer codes for train
   subject_train <- fread("UCI HAR Dataset//train//subject_train.txt")  
@@ -182,7 +191,7 @@ run_analysis <- function() {
   
   
   #Add feature column names to Train
-  colnames(x_train) <- c("RowId",features[2,],"ActivityCode","SubjectCode","DataSource")
+  colnames(x_train) <- c("RowId",features[2,],"ActivityCode","ActivityLabel","SubjectCode","DataSource")
   
   
 #   # Merge the Activty Names into the train data set 
@@ -202,9 +211,11 @@ run_analysis <- function() {
   # Merge the subject codes into the train data set 
   #x_combined <- merge(x_combined, activity_labels, by.x_combined="ActivityCode", by.activity_lables="ActivityCode", all = TRUE)
   
-  
+  #merge(x = x_combined, y = activity_labels, by = "ActivityCode", all.x = TRUE)
   
   head(x_combined)
+  
+  #head(y_train)
   
 }
 
