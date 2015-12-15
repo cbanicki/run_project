@@ -206,22 +206,17 @@ run_analysis <- function() {
   #                                         Combine Test and Train 
   # ########################################################################################################   
   
+  # For Part 1, but still need to make sure we have all numerical values in the data
   x_combined <- rbind.data.frame(x_test,x_train)
   
-  # Merge the subject codes into the train data set 
-  #x_combined <- merge(x_combined, activity_labels, by.x_combined="ActivityCode", by.activity_lables="ActivityCode", all = TRUE)
+  # For Part 2, only columns with mean or std
+  x_mean_std <- subset(x_combined, select = x_combined[,c("RowId","ActivityLabel", "SubjectCode",colnames(x_combined)[grep("mean()",colnames(x_combined))],colnames(x_combined)[grep("std()",colnames(x_combined))])])
   
-  #merge(x = x_combined, y = activity_labels, by = "ActivityCode", all.x = TRUE)
+  head(x_mean_std)
+                        
+  #x_subset <- subset(x_combined, select = c("RowId","ActivityLabel", "SubjectCode", colnames(x_combined %like% "mean()"), colnames(x_combined %like% "std()")))
   
-  #head(x_combined)
-
-  #head(y_train)
-  
-  # Do I need to use the PLYR package to get a subset of columns here?
-
-  x_subset <- subset(x_combined, select = c("RowId","ActivityLabel", "SubjectCode", colnames(x_combined %like% "mean()"), colnames(x_combined %like% "std()")))
-  
-  head(x_subset)
+  #head(x_subset)
     
 }
 
