@@ -1,6 +1,11 @@
 
 run_analysis <- function() {
   
+#   Might consider going back and utilizing these packages similar to this blog example, https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html
+  
+#   library(tidyr)
+#   library(dplyr)
+  
   # http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
   # 
   # Here are the data for the project: 
@@ -206,18 +211,68 @@ run_analysis <- function() {
   #                                         Combine Test and Train 
   # ########################################################################################################   
   
-  # For Part 1, but still need to make sure we have all numerical values in the data
+  # For Part 1, (as well as Part 3), all the data is in oned file and I have added the descriptive fields, but still need to make sure we have all numerical values in the data
   x_combined <- rbind.data.frame(x_test,x_train)
   
   # For Part 2, only columns with mean or std
-  x_mean_std <- subset(x_combined, select = x_combined[,c("RowId","ActivityLabel", "SubjectCode",colnames(x_combined)[grep("mean()",colnames(x_combined))],colnames(x_combined)[grep("std()",colnames(x_combined))])])
+  x_mean_std <- subset(x_combined, select = x_combined[,c("RowId","SubjectCode","ActivityLabel", colnames(x_combined)[grep("mean()",colnames(x_combined))],colnames(x_combined)[grep("std()",colnames(x_combined))])])
   
-  head(x_mean_std)
+  #head(x_mean_std)
                         
-  #x_subset <- subset(x_combined, select = c("RowId","ActivityLabel", "SubjectCode", colnames(x_combined %like% "mean()"), colnames(x_combined %like% "std()")))
+  #x_subset <- subset(x_combined, select = c("ActivityLabel", "SubjectCode", colnames(x_combined %like% "mean()"), colnames(x_combined %like% "std()")))
   
   #head(x_subset)
-    
+  
+  names(x_mean_std) <- c("RowId",	"SubjectCode",	"ActivityLabel",
+  "timeBodyAcceleration_Mean_X",	"timeBodyAcceleration_Mean_Y",	"timeBodyAcceleration_Mean_Z",
+  "timeGravityAcceleration_Mean_X",	"timeGravityAcceleration_Mean_Y",	"timeGravityAcceleration_Mean_Z",
+  "timeBodyAccelerationJerk_Mean_X",	"timeBodyAccelerationJerk_Mean_Y",	"timeBodyAccelerationJerk_Mean_Z",
+  "timeBodyGyro_Mean_X",	"timeBodyGyro_Mean_Y",	"timeBodyGyro_Mean_Z",
+  "timeBodyGyroJerk_Mean_X",	"timeBodyGyroJerk_Mean_Y",	"timeBodyGyroJerk_Mean_Z",
+  "timeBodyAccelerationMagnitude_Mean",	"timeGravityAccelerationMagnitude_Mean",	"timeBodyAccelerationJerkMagnitude_Mean",
+  "timeBodyGyroMagnitude_Mean",	"timeBodyGyroJerkMagnitude_Mean",	"frequencyBodyAcceleration_Mean_X",
+  "frequencyBodyAcceleration_Mean_Y",	"frequencyBodyAcceleration_Mean_Z",	"frequencyBodyAcceleration_MeanFreq_X",
+  "frequencyBodyAcceleration_MeanFreq_Y",	"frequencyBodyAcceleration_MeanFreq_Z",	"frequencyBodyAccelerationJerk_Mean_X",
+  "frequencyBodyAccelerationJerk_Mean_Y",	"frequencyBodyAccelerationJerk_Mean_Z",	"frequencyBodyAccelerationJerk_MeanFreq_X",
+  "frequencyBodyAccelerationJerk_MeanFreq_Y",	"frequencyBodyAccelerationJerk_MeanFreq_Z",	"frequencyBodyGyro_Mean_X",
+  "frequencyBodyGyro_Mean_Y",	"frequencyBodyGyro_Mean_Z",	"frequencyBodyGyro_MeanFreq_X",
+  "frequencyBodyGyro_MeanFreq_Y",	"frequencyBodyGyro_MeanFreq_Z",	"frequencyBodyAccelerationMagnitude_Mean",
+  "frequencyBodyAccelerationMagnitude_MeanFreq",	"frequencyBodyAccelerationJerkMagnitude_Mean",	"frequencyBodyAccelerationJerkMagnitude_MeanFreq",
+  "frequencyBodyGyroMagnitude_Mean",	"frequencyBodyGyroMagnitude_MeanFreq",	"frequencyBodyGyroJerkMagnitude_Mean",
+  "frequencyBodyGyroJerkMagnitude_MeanFreq",	"timeBodyAcceleration_StandardDeviation_X",	"timeBodyAcceleration_StandardDeviation_Y",
+  "timeBodyAcceleration_StandardDeviation_Z",	"timeGravityAcceleration_StandardDeviation_X",	"timeGravityAcceleration_StandardDeviation_Y",
+  "timeGravityAcceleration_StandardDeviation_Z",	"timeBodyAccelerationJerk_StandardDeviation_X",	"timeBodyAccelerationJerk_StandardDeviation_Y",
+  "timeBodyAccelerationJerk_StandardDeviation_Z",	"timeBodyGyro_StandardDeviation_X",	"timeBodyGyro_StandardDeviation_Y",
+  "timeBodyGyro_StandardDeviation_Z",	"timeBodyGyroJerk_StandardDeviation_X",	"timeBodyGyroJerk_StandardDeviation_Y",
+  "timeBodyGyroJerk_StandardDeviation_Z",	"timeBodyAccelerationMagnitude_StandardDeviation",	"timeGravityAccelerationMagnitude_StandardDeviation",
+  "timeBodyAccelerationJerkMagnitude_StandardDeviation",	"timeBodyGyroMagnitude_StandardDeviation",	"timeBodyGyroJerkMagnitude_StandardDeviation",
+  "frequencyBodyAcceleration_StandardDeviation_X",	"frequencyBodyAcceleration_StandardDeviation_Y",	"frequencyBodyAcceleration_StandardDeviation_Z",
+  "frequencyBodyAccelerationJerk_StandardDeviation_X",	"frequencyBodyAccelerationJerk_StandardDeviation_Y",	"frequencyBodyAccelerationJerk_StandardDeviation_Z",
+  "frequencyBodyGyro_StandardDeviation_X",	"frequencyBodyGyro_StandardDeviation_Y",	"frequencyBodyGyro_StandardDeviation_Z",
+  "frequencyBodyAccelerationMagnitude_StandardDeviation",	"frequencyBodyAccelerationJerkMagnitude_StandardDeviation",	"frequencyBodyGyroMagnitude_StandardDeviation",
+  "frequencyBodyGyroJerkMagnitude_StandardDeviation" )
+  
+
+  colsName <- names(x_mean_std)[2:3]
+  
+  colsMean <- names(x_mean_std)[4:82]
+
+  
+  x_mean_std.mean <- x_mean_std[,lapply(.SD,mean,na.rm=TRUE), by = colsName, .SDcols=colsMean] 
+  
+
+  x_mean_std.mean$SubjectCode <- factor(x_mean_std.mean$SubjectCode, levels =  c("1","2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21","22", "23", "24", "25", "26", "27", "28", "29", "30"), ordered = TRUE)
+  
+  x_mean_std.mean$SubjectCode <-  as.numeric(levels(x_mean_std.mean$SubjectCode)[x_mean_std.mean$SubjectCode]) 
+  
+  
+ tidydata <-   na.omit(x_mean_std.mean[order(x_mean_std.mean$SubjectCode)])
+
+ 
+  write.csv(tidydata, file = "tidyFit.csv", row.names = FALSE)
+
+
+ 
 }
 
 
