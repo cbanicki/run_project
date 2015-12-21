@@ -23,6 +23,8 @@ run_analysis <- function() {
 #   Please upload your data set as a txt file created with write.table() using row.name=FALSE (do not cut and paste a dataset directly into the text box, as this may cause errors saving your submission).
   
   
+  
+  # Interesting thing to check... do we need to compute averages grouped by?
   # Turn this on for testing but remove before publishing
   setwd("C://R//Data//Project")
   
@@ -50,7 +52,7 @@ run_analysis <- function() {
       
       dateDownloaded <- date()
       
-      print("didn't exist!")
+     # print("didn't exist!")
       
       unzip(fileName, files = NULL, list = FALSE, overwrite = TRUE,
             junkpaths = FALSE, exdir = ".", unzip = "internal",
@@ -59,20 +61,22 @@ run_analysis <- function() {
       
     }
     
-  else {
-    
-
-    print("file existed!")
-    
-  }
+#   else {
+#     
+# 
+#     print("file existed!")
+#     
+#   }
   
   require(data.table)
   
   
   
-  # Format activity labels and features data to be used in final data set
+  # Read Activity Labels into  data frame
   
   activity_labels <- fread("UCI HAR Dataset//activity_labels.txt")
+  
+  # Add column names for activity labels
   
   colnames(activity_labels) <- c("ActivityCode","ActivityName")
   
@@ -266,13 +270,17 @@ run_analysis <- function() {
   x_mean_std.mean$SubjectCode <-  as.numeric(levels(x_mean_std.mean$SubjectCode)[x_mean_std.mean$SubjectCode]) 
   
   
+ messydata <-   na.omit(x_mean_std[order(x_mean_std.mean$SubjectCode)])
+  
+  
  tidydata <-   na.omit(x_mean_std.mean[order(x_mean_std.mean$SubjectCode)])
 
  
-  write.csv(tidydata, file = "tidyFit.csv", row.names = FALSE)
+ write.table(tidydata, file = "975119_getdata-035.txt", row.names = FALSE)
 
 
  
+  
 }
 
 
