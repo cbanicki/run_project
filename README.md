@@ -13,9 +13,7 @@ chad.banicki@gmail.com
 ==================================================================
 
 30 volunteers performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone equiped with an accelerometer and gyroscope.  Among the data collected, are mean and standard deviation values for numerous 
-activity variables that include Acceleration, Gyro, and Jerk by both time and frequency. 
-
-As a simple explanation, acceleration is akin to body movement (velocity) change rate, body jerk (aka jolt) is a derivative of acceleration, i.e. the rate of change of acceleration, and gyro is a body rotation measurment.
+activity variables that include Acceleration, Gyro, Jerk, Gravity, and Magnitude by both time and frequency. 
 
 A description of the experiment, as well as data collectedare publicly available and can be found at the links below:
 
@@ -33,12 +31,12 @@ While all of the data are avaiable, they are spread accross multiple files and f
 
 The objective of this script, taken from the project assignment:
 
-You should create one R script called run_analysis.R that does the following. 
-Merges the training and the test sets to create one data set.
-Extracts only the measurements on the mean and standard deviation for each measurement. 
-Uses descriptive activity names to name the activities in the data set
-Appropriately labels the data set with descriptive variable names. 
-From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+1) You should create one R script called run_analysis.R that does the following. 
+2) Merges the training and the test sets to create one data set.
+3) Extracts only the measurements on the mean and standard deviation for each measurement. 
+4) Uses descriptive activity names to name the activities in the data set
+5) Appropriately labels the data set with descriptive variable names. 
+6) From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
 
 
@@ -50,13 +48,14 @@ From the data set in step 4, creates a second, independent tidy data set with th
 
 This script is a single function taking no arguments that will:
 
-1) Gather data files from a public website.
+1) Gather data files from a public website (link above).
 
 2) Download them to the working directory on your computer.
 
 3) Clean the data files by consolidating them into a single table and adding descriptive headers. 
 
-4) Create a tidy data set summarizing the data by Volunteer Subject Number, Volunteer Activity, and mean and standard deviation values for activity measurements.
+4) Create a tidy data set summarizing the data by Volunteer Subject Number, Volunteer Activity, and
+take the average of mean and standard deviation values for activity measurements.
 
 
 ==================================================================
