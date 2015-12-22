@@ -1,15 +1,20 @@
- 
-
-Run_Analysis.R
-12/21/2015
--
+==================================================================
+Run_Analysis.R - tidy data set for 'Getting and Cleaning Data', 
+an online course offerred by Johns Hopkins, Bloomberg School of Public Health.
+Version 1.0
+==================================================================
 Chad Banicki
+chad.banicki@gmail.com
+==================================================================
 
 A google docs version of the codebook can be found here:
 https://docs.google.com/document/d/10An5EkzfLs0_4yGqi3LambaK11nq3xmwop9kic2V6UQ/edit?usp=sharing
 
 
---Overview
+==================================================================
+			Overview
+==================================================================
+
 The objective of this project is to create an R script to collect, compile, and summarize data into a tidy format; well suited for further analysis.  This document serves as a codebook to describe the process and variables as they relate to the stated project objective. 
 
 The data for the project were collected from a study conducted using accelerometers from the Samsung Galaxy S smartphone, (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones)
@@ -17,8 +22,10 @@ The data for the project were collected from a study conducted using acceleromet
 The raw data files collected are located here: 
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
+==================================================================
+			Variables
+==================================================================
 
---Variables
 
 - Volunteer Subjects: 
 
@@ -81,7 +88,9 @@ The average of each of these measures was calculated:
   "frequencyBodyGyroJerkMagnitude_StandardDeviation"
 
 
---Transformations
+==================================================================
+			Transformations
+==================================================================
 
 
 -Verbosity
