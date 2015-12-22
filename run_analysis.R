@@ -21,16 +21,20 @@ run_analysis <- function() {
   
   
   # Used just for testing, comment out
-  # setwd("C://R//Data//Project")
+  #  setwd("C://R//Data//Project")
   
 
   #####################################################################################################
   #                                           Collect Data
   #####################################################################################################
   
+  output <- tryCatch(
   
-  #Check whether you have already dowloaded the data into the working director, and if not, download and unzip 
-  
+    {
+      #Check whether you have already dowloaded the data into the working director, and if not, download and unzip it 
+      
+      message("Checking local drive for data file. If it's not there then trying URL for new file.")
+
   if (!file.exists("getdata-projectfiles-UCI HAR Dataset.zip")) {
       
       fileURL <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
@@ -46,10 +50,24 @@ run_analysis <- function() {
             setTimes = FALSE)
     }
     
-
+},
+    error=function(cond) {
+      message(paste("Error getting data:", fileURL))
+      message("Original Error Message:")
+      message(cond)
+      # Return NA
+      stop("Check connection and try again.")
+      return(NA)
+    },
+    warning=function(cond) {
+      message(paste("Warning getting data", fileURL))
+      message("Original warning message:")
+      message(cond)
+},
+  
+  finally={
+  
   require(data.table)
-  
-  
   # Collect activity labels
   activity_labels <- fread("UCI HAR Dataset//activity_labels.txt")
   
@@ -219,12 +237,15 @@ run_analysis <- function() {
   # Write tidy data to a file
   write.table(tidydata, file = "975119_getdata-035.txt", row.names = FALSE)
   
-  print("process complete!")
-
+  print("Process Complete. Find 975119_getdata-035.txt in working directory.")
+  
+  }
+    
+  )
+  
+  return(output)
   
 }
-
-
 
 
  
