@@ -96,11 +96,11 @@ The average of each of these measures was calculated:
 -Verbosity
 
 The original data field names were replaced by more descriptive names.  
-t ?  time
-f ? frequency
-mean() ?  mean
-std() ?  standardDeviation
-Mag ?  Magnitude
-Acc ?  Acceleration
-Freq ?  Frequency
+t --  time
+f -- frequency
+mean() --  mean
+std()--  standardDeviation
+Mag --  Magnitude
+Acc --  Acceleration
+Freq --  Frequency
 
