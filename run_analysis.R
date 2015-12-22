@@ -28,7 +28,7 @@ run_analysis <- function() {
   #                                           Collect Data
   #####################################################################################################
   
-  output <- tryCatch(
+  tryCatch(
   
     {
       #Check whether you have already dowloaded the data into the working director, and if not, download and unzip it 
@@ -243,7 +243,7 @@ run_analysis <- function() {
     
   )
   
-  return(output)
+ # return(output)
   
 }
 
