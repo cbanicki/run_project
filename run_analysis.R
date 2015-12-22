@@ -21,7 +21,7 @@ run_analysis <- function() {
   
   
   # Used just for testing, comment out
-   setwd("C://R//Data//Project")
+  # setwd("C://R//Data//Project")
   
 
   #####################################################################################################
